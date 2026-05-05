@@ -1,0 +1,67 @@
+/* Onedesign 1:1 Export Studio */
+:root {
+  --primary: #111827;
+  --text: #ff0000;
+  --radius: 8px;
+  --font: 'Inter', sans-serif;
+  --bg-main: #F8F9FA;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  font-family: var(--font);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.bento-wrapper {
+  min-height: 100vh; /* DIPERBAIKI: Tadi error karena menggunakan Tailwind class */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  
+}
+
+/* Ambient Glow Effect */
+
+
+.bento-container {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  background: #FFFFFF;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: var(--radius);
+  padding: 48px;
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.1);
+}
+
+/* Responsive Grid Mobile */
+@media (max-width: 768px) {
+  .bento-container { grid-template-columns: 1fr; padding: 24px; }
+  .bento-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+}
+
+.bento-item { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 140px; transition: all 0.3s ease; }
+.item-1 { grid-column: span 2; grid-row: span 2; }
+.item-2 { grid-column: span 1; grid-row: span 1; }
+.item-3 { grid-column: span 1; grid-row: span 1; }
+.item-4 { grid-column: span 4; grid-row: span 1; }
+.item-5 { grid-column: span 1; grid-row: span 1; }
+.item-6 { grid-column: span 2; grid-row: span 2; }
+.item-7 { grid-column: span 1; grid-row: span 1; }
+
+/* Component Styles */
+.heading { font-size: 3.5rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1.1; margin: 0; }
+.paragraph { font-size: 1.125rem; font-weight: 500; opacity: 0.8; line-height: 1.6; max-width: 600px; }
+.button { background-color: var(--primary); color: white; padding: 16px 40px; border-radius: calc(var(--radius) / 2); border: none; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; box-shadow: 0 10px 30px -10px var(--primary); }
+.glass-card { width: 100%; height: 100%; padding: 32px; border-radius: var(--radius); border: 1px solid rgba(0,0,0,0.05); background: rgba(0,0,0,0.02); backdrop-filter: blur(40px); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; }
