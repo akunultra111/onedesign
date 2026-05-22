@@ -143,14 +143,13 @@ trait ResolvesJsonApiElements
             $data = $data->jsonSerialize();
         }
 
-        $sparseFieldset = match ($this->usesRequestQueryString) {
-            true => $request->sparseFields($resourceType),
-            default => [],
-        };
+        $usesSparseFieldset = $this->usesRequestQueryString && $request->hasSparseFieldset($resourceType);
+
+        $sparseFieldset = $usesSparseFieldset ? $request->sparseFields($resourceType) : [];
 
         $data = (new Collection($data))
             ->mapWithKeys(fn ($value, $key) => is_int($key) ? [$value => $this->resource->{$value}] : [$key => $value])
-            ->when(! empty($sparseFieldset), fn ($attributes) => $attributes->only($sparseFieldset))
+            ->when($usesSparseFieldset, fn ($attributes) => $attributes->only($sparseFieldset))
             ->transform(fn ($value) => value($value, $request))
             ->all();
 
@@ -280,7 +279,7 @@ trait ResolvesJsonApiElements
 
             return;
         } elseif ($relatedModel instanceof Pivot ||
-            in_array(AsPivot::class, class_uses_recursive($relatedModel), true)) {
+            isset(class_uses_recursive($relatedModel)[AsPivot::class])) {
             yield $relationName => new MissingValue;
 
             return;
